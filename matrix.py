@@ -1,19 +1,34 @@
 import math
 
 def make_translate( x, y, z ):
-    pass
+  return [[1, 0, 0, x],
+          [0, 1, 0, y],
+          [0, 0, 1, z],
+          [0, 0, 0, 1]]
 
 def make_scale( x, y, z ):
-    pass
-    
-def make_rotX( theta ):   
-    pass
+  return [[x, 0, 0, 0],
+          [0, y, 0, 0],
+          [0, 0, z, 0],
+          [0, 0, 0, 1]]
+
+def make_rotX( theta ):
+  return [[1, 0, 0, 0],
+          [0, math.cos(theta), math.sin(theta) * -1, 0],
+          [0, math.sin(theta), math.cos(theta), 0],
+          [0, 0, 0, 1]]
 
 def make_rotY( theta ):
-    pass
+  return [[math.cos(theta), 0, math.sin(theta) * -1, 0],
+          [0, 1, 0, 0],
+          [math.sin(theta), 0, math.cos(theta), 0],
+          [0, 0, 0, 1]]
 
 def make_rotZ( theta ):
-    pass
+  return [[math.cos(theta), math.sin(theta) * -1, 0, 0],
+          [math.sin(theta), math.cos(theta), 0, 0],
+          [0, 0, 1, 0],
+          [0, 0, 0, 1]]
 
 def new_matrix(rows = 4, cols = 4):
     m = []
@@ -24,7 +39,12 @@ def new_matrix(rows = 4, cols = 4):
     return m
 
 def print_matrix( matrix ):
-    pass
+    result = ''
+    for x in range( len(matrix) ):
+      for y in range( len(matrix[x]) ):
+        result += str(matrix[x][y]) + '\t'
+      result += '\n'
+    print result
 
 def ident( matrix ):
     pass
@@ -35,4 +55,3 @@ def scalar_mult( matrix, x ):
 #m1 * m2 -> m2
 def matrix_mult( m1, m2 ):
     pass
-
