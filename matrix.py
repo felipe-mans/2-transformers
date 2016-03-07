@@ -13,55 +13,59 @@ def make_scale( x, y, z ):
           [0, 0, 0, 1]]
 
 def make_rotX( theta ):
+  deg = math.radians( theta )
   return [[1, 0, 0, 0],
-          [0, math.cos(theta), math.sin(theta) * -1, 0],
-          [0, math.sin(theta), math.cos(theta), 0],
+          [0, math.cos(deg), math.sin(deg) * -1, 0],
+          [0, math.sin(deg), math.cos(deg), 0],
           [0, 0, 0, 1]]
 
 def make_rotY( theta ):
-  return [[math.cos(theta), 0, math.sin(theta) * -1, 0],
+  deg = math.radians( theta )
+  return [[math.cos(deg), 0, math.sin(deg) * -1, 0],
           [0, 1, 0, 0],
-          [math.sin(theta), 0, math.cos(theta), 0],
+          [math.sin(deg), 0, math.cos(deg), 0],
           [0, 0, 0, 1]]
 
 def make_rotZ( theta ):
-  return [[math.cos(theta), math.sin(theta) * -1, 0, 0],
-          [math.sin(theta), math.cos(theta), 0, 0],
+  deg = math.radians( theta )
+  return [[math.cos(deg), math.sin(deg) * -1, 0, 0],
+          [math.sin(deg), math.cos(deg), 0, 0],
           [0, 0, 1, 0],
           [0, 0, 0, 1]]
 
 def new_matrix(rows = 4, cols = 4):
     m = []
-    for c in range( cols ):
+    for r in range( rows ):
         m.append( [] )
-        for r in range( rows ):
-            m[c].append( 0 )
+        for c in range( cols ):
+            m[r].append( 0 )
     return m
 
 def print_matrix( matrix ):
-  result = ''
+  result = '\n'
   for x in range( len(matrix) ):
     for y in range( len(matrix[x]) ):
       result += str(matrix[x][y]) + '\t'
     result += '\n'
-    print result
+  print result
 
 def ident( matrix ):
-    result = new_matrix( len(matrix), len(matrix) )
-    for x in range( len(matrix) ):
-      m[x][x] = 1
-    return result
+  result = new_matrix( len(matrix), len(matrix) )
+  for x in range( len(matrix) ):
+    result[x][x] = 1
+  return result
 
 def scalar_mult( matrix, x ):
-    pass
+  scale = make_scale( x, x, x)
+  return matrix_mult(scale, matrix)
 
 #m1 * m2 -> m2
 def matrix_mult( m1, m2 ):
-  result = new_matrix( len(m2[0]), len(m1) )
+  result = new_matrix( len(m1), len(m2[0]) )
   for x in range( len(m1) ):
     for y in range( len(m2[0]) ):
         sum = 0
         for i in range(len(m2)):
           sum += m1[x][i] * m2[i][y]
-        m[x][y] = sum
+        result[x][y] = sum
   return result
